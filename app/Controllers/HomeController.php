@@ -9,6 +9,8 @@ class HomeController extends Controller
 {
     public function index(RequestInterface $request, ResponseInterface $response)
     {
+        $user = $this->db->table('user')->find(1);
+        echo $user->email;
         return $this->view->render($response, 'home.twig');
     }
 }

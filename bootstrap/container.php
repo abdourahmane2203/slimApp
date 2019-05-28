@@ -3,6 +3,20 @@
 
 // ON INITIALISE LE CONTAINER
 $container = $app->getContainer();
+
+// SERVICE FACTORY POUR LE ORM elequant
+$container['db'] = function ($container) {
+   // INITIALISATION
+    $capsule = new \Illuminate\Database\Capsule\Manager;
+    // AJOUT DE LA CONFIGURATION DE LA CONNEXION A LA BASE DE DONNEES.
+    $capsule->addConnection($container['settings']['db']);
+
+    $capsule->setAsGlobal();
+    // DEMARRE L'ORM.
+    $capsule->bootEloquent();
+    return $capsule;
+};
+
 // ON CREE UNE CLE view ==> CREATION D'UN OBJET Twig
 $container['view'] = function ($container){
     // CREATION DE L'OBJET Twig => $view
